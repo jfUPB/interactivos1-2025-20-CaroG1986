@@ -70,3 +70,5 @@ function draw() {
 <img width="1388" height="537" alt="image" src="https://github.com/user-attachments/assets/a30125e2-55dd-4fed-b43a-91f12e95bb78" />
 
 _Nota:Las luces y las ondas se mueven en el programa_
+
+_Nota:Se puede encontrar la imagen utilizada en el siguiente [enlace](https://www.deviantart.com/dibujosparacolorear/art/Dibujos-para-Colorear-Faro-976226367)_
