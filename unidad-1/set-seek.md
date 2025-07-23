@@ -24,7 +24,7 @@ El arte generativo puede potenciar el impacto que tiene la animación covirtiend
 
 ### Actividad 03
 
-En el ejemplo los Inputs serian los botones que hay en el micro:bit, el acelerometro y el serial que lo conecta con el computador y le informa cuando se presiona el botón de "send love". El proceso de este sistema sería el programa en Python, que es el encargado de mandar lo que se ve en las luces de la computadora y P5.js que recibe la información detectada por los sensores y botones. Finalmente el output sería las imagenes que se ven proyectadas en los LEDs, y el cambio de color y letra en la pantalla del computador.
+En el ejemplo los Inputs serian los botones que hay en el micro:bit, el acelerometro y el serial que lo conecta con el computador y le informa cuando se presiona el botón de "send love", ya que estos captan las acciones del usuario. El proceso de este sistema sería el programa en Python, que es el encargado de mandar lo que se ve en las luces de la computadora y P5.js que recibe la información detectada por los sensores y botones. Finalmente el output sería las imagenes que se ven proyectadas en los LEDs, y el cambio de color y letra en la pantalla del computador, es decir, el resultado final que recibe el usuario.
 
 ### Actividad 04
 
