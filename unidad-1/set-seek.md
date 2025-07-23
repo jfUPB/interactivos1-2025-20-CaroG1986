@@ -24,51 +24,54 @@ El arte generativo puede potenciar el impacto que tiene la animación covirtiend
 
 ### Actividad 03
 
-En el ejemplo los Inputs serian los botones que hay en el micro:bit, el acelerometro y el serial que lo conesta con el computador y le informa cuando se presiona el botón de send love. El proceso de este sistema sería el programa en Python, que es el encargado de mandar lo que se ve en las luces de la computadora y P5.js que recibe la información detectada por los sensores y botones. Finalmente el output sería las imagenes que se ven proyectadas en los LEDs, y el cambio de color y letra en la pantalla del computador.
+En el ejemplo los Inputs serian los botones que hay en el micro:bit, el acelerometro y el serial que lo conecta con el computador y le informa cuando se presiona el botón de "send love". El proceso de este sistema sería el programa en Python, que es el encargado de mandar lo que se ve en las luces de la computadora y P5.js que recibe la información detectada por los sensores y botones. Finalmente el output sería las imagenes que se ven proyectadas en los LEDs, y el cambio de color y letra en la pantalla del computador.
 
 ### Actividad 04
 
-Para este programa, después de experimentar un rato con las funciones, se llevo a cabo un programa que representa un faro proyectando su luz a través del canvas y bajo este se puede divisar una onda que actua como la onda del agua. [Este es el enlace](https://editor.p5js.org/CaroG1986/sketches/hF6SXlwUY) 
+Para esta actividad, después de experimentar un rato con las funciones, se llevo a cabo un programa que sigue con lineas que van desde las puntas del canvas la forma de un infinito, estas lineas cambian de colores de forma aleatoria y dejan cierto rastro en la pantalla. 
+[Este es el enlace al programa](https://editor.p5js.org/CaroG1986/sketches/l4YYT0cZu).
 
 ``` javascript
-let lighthouse;
-
-function preload() {
-  lighthouse = loadImage("assets/faro1.jpg");
-}
 function setup() {
   createCanvas(400, 400);
+  noStroke();
+  //frameRate(70);
 }
 
 function draw() {
-  background('rgba(255, 255, 255, 0.7)');
-  image(lighthouse,100,180,200,250);
-  stroke ('rgba(225, 223, 25, 0.7)');
-  strokeWeight(20)
-  let x = 1500 * sin(frameCount * 0.05) + random (100,200);
-  let y= 40;
-    line (x,y,200,250);
-  stroke ('rgba(225, 223, 25, 0.7)');
-  strokeWeight(20)
-  let x1 = 1500 * sin(frameCount * -0.05) + random (100,200);
-  let y1= 40;
-    line (x1,y1,200,250);
-  stroke('blue')
-  strokeWeight(3)
-  let amplitude = 10;
-  let frequency = 0.05;
-  let offsetY = 380;
+  background(20, 20, 30, 50); 
 
-  for (let x = 0; x < width; x += 2) {
-    let angle = x * frequency + frameCount * 0.05;
-    let y = offsetY + cos(angle) * amplitude;
-    point(x, y);
-  }
+  let x = 200 * cos(frameCount * 0.1) + 200;
+  let y = 150 * sin(frameCount * 0.2) + 200;
+
+   stroke (random(100,200),random(100,200),random(150,250),200);
+  strokeWeight(3);
+    line(x,y,0,0);
+  
+  let x1 = 200 * cos(frameCount * 0.1) + 200;
+  let y1 = 150 * sin(frameCount * 0.2) + 200;
+
+   stroke (random(100,200),random(100,200),random(150,250),200);
+  strokeWeight(3);
+    line(x1,y1,400,400);
+  let x2 = 200 * cos(frameCount * 0.1) + 200;
+  let y2 = 150 * sin(frameCount * 0.2) + 200;
+
+   stroke (random(100,200),random(100,200),random(150,250),200);
+  strokeWeight(3);
+    line(x2,y2,0,400);
+  
+  let x3 = 200 * cos(frameCount * 0.1) + 200;
+  let y3 = 150 * sin(frameCount * 0.2) + 200;
+
+   stroke (random(100,200),random(100,200),random(150,250),200);
+  strokeWeight(3);
+    line(x3,y3,400,0);
 }
 ```
+Estas son imagenes del programa en ejecución
 
-<img width="1388" height="537" alt="image" src="https://github.com/user-attachments/assets/a30125e2-55dd-4fed-b43a-91f12e95bb78" />
+<img width="1461" height="573" alt="image" src="https://github.com/user-attachments/assets/ead2c8d8-7e12-4f15-b9fb-596230ececa1" />
 
-_Nota:Las luces y las ondas se mueven en el programa_
+<img width="498" height="501" alt="image" src="https://github.com/user-attachments/assets/2f22e95c-a4f9-4153-bfce-7cccc8a6f7d7" />
 
-_Nota:Se puede encontrar la imagen utilizada en el siguiente [enlace](https://www.deviantart.com/dibujosparacolorear/art/Dibujos-para-Colorear-Faro-976226367)_
