@@ -46,4 +46,8 @@ De hecho cuando era pequeña en clase de tecnología me introdujeron por primera
 
 #### _Balance inspiración vs. técnica: ¿Cómo sentiste el equilibrio entre ver los videos inspiradores de la Actividad 01 y la parte técnica de conectar las herramientas en las actividades 03-06?_
 
+En realidad desde el inicio que veíamos los videos me pareció un tema muy interesante y me impresionó la amplia gama de posibilidades que este podía traer tanto artística como técnicamente. Y el momento de la elaboración de los programas me gustó mucho el trabajar con micro:bit y ver cómo se ejecutaba el programa en un output visible como los leds del micro:bit
+
 #### _Comentario adicional: ¿Hay algo más que quieras compartir sobre tu experiencia en esta unidad introductoria?_
+
+Esta unidad despertó un gran interés en mí y me enseñó de las grandes oportunidades y posibilidades que tienen las experiencias interactivas y el arte generativo. Es por esto que espero en el resto del semestre poder aprender mucho más sobre cómo llevar a cabo esas experiencias.
