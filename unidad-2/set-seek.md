@@ -80,5 +80,7 @@ while True:
 Este código se compone de la siguiente manera: 🐜
 
 -Los estados= en esta caso serían init, que es el estado incial y Espera que se usa para que cuando un Led realize una acción este espere para poder realizar la siguiente.
+
 -Los eventos= En este caso sería el tiempo que debe esperar para que se encienda el siguiente LED 
+
 -Las acciones= En este programa las acciones sería, prender, esperar un momento y luego encender el proxímo LED.
