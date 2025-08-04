@@ -89,11 +89,11 @@ Este código se compone de la siguiente manera: 🐜
 
 #### Explica por qué decimos que este programa permite realizar de manera concurrente varias tareas.
 
-Porque este programa además de esperar también debe estar pendiente a si se presiona un botón, es decir, tiene más de un input que realiza acciones distintas.
+Porque este programa además de esperar también debe estar pendiente a si se presiona un botón, es decir, tiene más de un input que realiza acciones distintas, en esta caso, cambiar a diferentes estados.
 
 #### Identifica los estados, eventos y acciones en el programa.
 
--Estados: Los estados de este programa sin Init (que es un sub-estado), HAPPY, SMILE Y SAD los cuales esperan para mostrar otra imagen.
+-Estados: Los estados de este programa son Init (que es un sub-estado), HAPPY, SMILE Y SAD los cuales esperan para mostrar otra imagen.
 
 -Eventos: El evento en este caso sería que pase el tiempo que se indica según el estado o que se presione el botón A.
 
@@ -101,8 +101,9 @@ Porque este programa además de esperar también debe estar pendiente a si se pr
 
 #### Describe y aplica al menos 3 vectores de prueba para el programa.
 
--Si estoy en el estado HAPPY y presiono el botón A, el programa debería cambiar al estado SAD y después volver al estado HAPPY después de 2 segundos. Al llevar a cabo la prueba en el programa se cumplió con el resultado esperado, por ende paso el vector de prueba.
+-Si estoy en el estado HAPPY y presiono el botón A, el programa debería cambiar al estado SAD y después volver al estado HAPPY después de 2 segundos. Al llevar a cabo la prueba en el programa se cumplió con el resultado esperado, por ende paso el vector de prueba. ☑️
 
--Estando en el estado SMILE al presionar el botón a debería cambiar al estado HAPPY y regresar al estado SMILE despúes de 1.5 segundos. Cuando se realiza la prueba si se siguió los pasos esperados para el programa por ende paso el vector de prueba.
+-Estando en el estado SMILE al presionar el botón a debería cambiar al estado HAPPY y regresar al estado SMILE despúes de 1.5 segundos. Cuando se realiza la prueba si se siguió los pasos esperados para el programa por ende paso el vector de prueba.☑️
 
--Finalmente en el estado SAD, si se presiona el botón A debe entonces pasar al estado SMILE, esperar 1 segundo y volver despúes a SAD. Se realizó un aprueba con el programa y se observo que se cumplió con lo requerido, por ende también pasó el vector de prueba.
+-Finalmente en el estado SAD, si se presiona el botón A debe entonces pasar al estado SMILE, esperar 1 segundo y volver despúes a SAD. Se realizó un aprueba con el programa y se observo que se cumplió con lo requerido, por ende también pasó el vector de prueba.☑️
+
