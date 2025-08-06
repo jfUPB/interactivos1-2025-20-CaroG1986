@@ -20,7 +20,7 @@ La acciones de este programa serian prender un LED, dejarlo por un intervalo y h
 
 ### Actividad 02
 
-Para hacer un semáforo el códiho sería el siguiente:
+Para hacer un semáforo el código sería el siguiente:
 
 ``` python
 from microbit import *
@@ -108,5 +108,6 @@ Porque este programa además de esperar también debe estar pendiente a si se pr
 -Estando en el estado SMILE al presionar el botón a debería cambiar al estado HAPPY y regresar al estado SMILE despúes de 1.5 segundos. Cuando se realiza la prueba si se siguió los pasos esperados para el programa por ende paso el vector de prueba.☑️
 
 -Finalmente en el estado SAD, si se presiona el botón A debe entonces pasar al estado SMILE, esperar 1 segundo y volver despúes a SAD. Se realizó un aprueba con el programa y se observo que se cumplió con lo requerido, por ende también pasó el vector de prueba.☑️
+
 
 
