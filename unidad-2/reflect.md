@@ -23,7 +23,7 @@ Para agregar esta nueva funcionalidad en el diagrama lo que haría sería en el 
 
 Un vector de prueba es una herramienta que permite verificar sí las partes de la máquina de estados o cualquier programa en general si son funcionales y congruentes con la idea que se tiene del código.  Bien es por esto que para elaborar un vector de prueba primero se piensa lo que se espera en vez de cierta parte del código y después se hace la prueba, y finalmente comprueba si funciona o no.
 
-### Parte 2
+#### Parte 2
 
 **¿Qué parte del diseño de la bomba temporizada te resultó más desafiante: crear el diagrama de estados (Actividad 04) o traducir ese diagrama a código MicroPython (Actividad 05)? ¿Por qué?**
 
@@ -72,3 +72,4 @@ Considero que la actividad 3 sería como un cuatro en dificultad ya que como no 
 **Comentario adicional: ¿Hay algo más que te gustaría compartir sobre tu proceso de aprendizaje en esta unidad? ¿Algún momento de frustración o de “¡Aha!” que quieras destacar?**
 
 Lo que más me gustó de esta actividad fue darme cuenta de que hay formas distintas de solucionar el mismo problema, es decir, crear el mismo código, y que muchas veces estas formas nuevas pueden ser más sencillas y mejores para la elaboración de un programa.
+
