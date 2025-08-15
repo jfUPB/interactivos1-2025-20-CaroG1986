@@ -127,3 +127,6 @@ while True:
             current_state=STATE_CONFIGURACION
 ```
 
+### Actividad 03
+
+
