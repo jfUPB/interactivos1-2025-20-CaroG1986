@@ -127,6 +127,15 @@ while True:
             current_state=STATE_CONFIGURACION
 ```
 
-### Actividad 03
+### Actividad 05
 
+El diagrama de este código se ve de la siguiente manera: 🥣
+
+<img width="702" height="688" alt="image" src="https://github.com/user-attachments/assets/b3a21ad1-9f36-40e5-a1d1-0f027dc91405" />
+
+Ahora, para ver los vectores de prueba de los estados se hizo la siguiente tabla: 🧋
+
+<img width="675" height="659" alt="image" src="https://github.com/user-attachments/assets/9e2585e7-8b26-4ffa-bddc-fa0c4bfafeca" />
+<img width="674" height="354" alt="image" src="https://github.com/user-attachments/assets/136011ef-0ec3-4e15-87cc-c9555614653b" />
+<img width="678" height="534" alt="image" src="https://github.com/user-attachments/assets/4cad7761-58f7-42a8-b36e-02e561981fd4" />
 
