@@ -19,7 +19,7 @@ let bombtask1;
 
 class Bombtask {
   constructor(){
-    This.PASSWORD = ['A','B','C'];
+    this.PASSWORD = ['A','B','A'];
     this.key = new Array(this.PASSWORD.length).fill('');
     this.keyindex = 0;
     this.count = 20;
@@ -166,4 +166,5 @@ while True:
         uart.write("T\n")
     utime.sleep_ms(100)
 ```
+
 
