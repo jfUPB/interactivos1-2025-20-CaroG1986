@@ -5,7 +5,7 @@
 
 ### Actividad 06
 
-[https://editor.p5js.org/CaroG1986/sketches/N7SY7VIPb]
+[Este es el link al programa](https://editor.p5js.org/CaroG1986/sketches/N7SY7VIPb)
 
 >Para generar este código traduje el código de python casi que literal, sin embrago hay cosas que en python funcionan diferente por lo que en lugar de poner todo en un solo método hice más métodos para cuando se den los distintos casos. También se prodría con otras clases, sin embargo ese código es el de la bomba 3.0, por eso intente hacer todo en una sola clase.
 
@@ -166,3 +166,4 @@ while True:
         uart.write("T\n")
     utime.sleep_ms(100)
 ```
+
