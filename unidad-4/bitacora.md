@@ -120,6 +120,7 @@ Código modificado:
 
 ``` js
 // P_2_1_3_04
+
 /**
  * changing positions of stapled circles in a grid
  *
@@ -158,9 +159,10 @@ let microBitAState = false;
 let microBitBState = false;
 let prevmicroBitAState = false;
 let prevmicroBitBState = false;
+let cnv;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  cnv = createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
   port = createSerial();
   connectBtn = createButton("Connect to micro:bit");
@@ -322,7 +324,7 @@ function draw() {
 
 function keyReleased() {
   console.log(key);
-  if (key == "s" || key == "S") saveCanvas(gd.timestamp(), "png");
+  if (key == "s" || key == "S") saveCanvas(cnv);
   if (key == "1") drawMode = 1;
   if (key == "2") drawMode = 2;
   if (key == "3") drawMode = 3;
@@ -331,13 +333,12 @@ function keyReleased() {
   if (keyCode == LEFT_ARROW) tileCountX = max(tileCountX - 1, 1);
   if (keyCode == RIGHT_ARROW) tileCountX += 1;
 }
-
-
 ```
 
 ## Video
 
 [Video demostratativo](URL)
+
 
 
 
