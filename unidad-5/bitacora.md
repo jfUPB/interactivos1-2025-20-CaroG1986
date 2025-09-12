@@ -106,9 +106,36 @@ Despúes en esta información se usa en esta función y se ejecuta un acción de
 <img width="1028" height="749" alt="image" src="https://github.com/user-attachments/assets/2ccbc2de-e11b-49ab-8cb5-c31b5ef648b2" />
 **Todo en HEX en la aplicación serial**
 > ¿Cómo está relacionado con esta línea de código? ⭐
-> En este se ve como los espacios del código anterior se ven representados por ceros que separan cuatro pares de caracteres, los cuales son la información que se ve representada en el código binario.
+> En este se ve como los simbolos raros del código anterior se ven representados por ceros , los otros son caracteres donde se ve la información que se ve representada en el código binario.
 <img width="1023" height="746" alt="image" src="https://github.com/user-attachments/assets/6948c9dc-4357-4e17-a7de-db41eca68cd2" />
+
 >¿Qué ventajas y desventajas ves en usar un formato binario en lugar de texto en ASCII?⭐
-> Una ventaja del formato binario es que al ser más corto sintetiza mejor la información por lo que supongo que podría ser más rápido que el otro formato, por otro lado una desventaje que le veo es que hace más complejo el visualizar lo que esta pasando con elcódigo y que información entra por el puerto serial.
+> Una ventaja del formato binario es que al ser más corto sintetiza mejor la información por lo que supongo que podría ser más rápido que el otro formato, por otro lado una desventaje que le veo es que hace más complejo el visualizar lo que esta pasando con el código y que información entra por el puerto serial.
 
 <img width="1008" height="734" alt="image" src="https://github.com/user-attachments/assets/fbea25ab-fb6e-4fe5-a8d6-2e4bba7c2956" />
+
+> ¿Cuántos bytes se están enviando por mensaje? ¿Cómo se relaciona esto con el formato '>2h2B'? ¿Qué significa cada uno de los bytes que se envían? ⭐
+> Por mensaje se estan enviando 6 bytes, por lo que supongo que según ese formato dos de esos bytes deben representar espacios, y el resto deben representar la información siendo los 00s los simbolos extraños y el resto de bytes los demás números y/o letras.
+>  posible enviar números positivos y negativos para los valores de xValue y yValue. ¿Cómo se verían esos números en el formato '>2h2B'? ⭐
+> <img width="1007" height="733" alt="image" src="https://github.com/user-attachments/assets/33dea758-c78d-4ba1-84a9-78889931300b" />
+>los primeros que se ven como dos cuadrados son números positivos y los segundos que son cuatro cuadrados son los números negativos.
+
+<img width="999" height="731" alt="image" src="https://github.com/user-attachments/assets/ec1062f7-cd62-4d9e-a575-0a5ef0a09893" />
+
+>¿Qué diferencias ves entre los datos en ASCII y en binario? ¿Qué ventajas y desventajas ves en usar un formato binario en lugar de texto en ASCII? ¿Qué ventajas y desventajas ves en usar un formato ASCII en lugar de binario? ⭐
+>Las principales diferencias entre los dos son que el binario es más corto que el otro pero es muy confuso, siendo estas caracteristicas sus ventajas y desventajas respectivamente. por otro lado, el ASCII es un lenguaje mucho más claro y fácil de comprender.
+
+### Actividad 03
+
+ **Explica por qué en la unidad anterior teníamos que enviar la información delimitada y además marcada con un salto de línea y ahora no es necesario.** ⭐
+
+Esto es debido al cambio de formato, este ahora lee separando los datos por sus bytes, así que los primeros dos bytes representan el valor en x, los siguientes en y y los últimos dos los valores true o false de los botones A y B.
+
+**Compara el código de la unidad anterior relacionado con la recepción de los datos seriales que ves ahora. ¿Qué cambios observas?** ⭐
+
+El principal cambio que puedo observar es que en el anterior se daba la instrucción leer los hasta "/n" y que se separaran entre si con una coma, en cabio aquí, si no me equivoco, esta separandolos según su orden.
+
+>**CUANDO SE EJECUTA EL CÓDIGO**
+<img width="938" height="721" alt="image" src="https://github.com/user-attachments/assets/96da6518-3eb7-4b06-9789-cea244e18ce5" />
+
+**¿Qué ves en la consola? ¿Por qué crees que se produce este error?** ⭐
