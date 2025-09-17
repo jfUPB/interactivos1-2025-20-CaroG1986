@@ -139,3 +139,16 @@ El principal cambio que puedo observar es que en el anterior se daba la instrucc
 <img width="938" height="721" alt="image" src="https://github.com/user-attachments/assets/96da6518-3eb7-4b06-9789-cea244e18ce5" />
 
 **¿Qué ves en la consola? ¿Por qué crees que se produce este error?** ⭐
+
+Supongo que este error se causó porque hay algún error al momento de leer los datos qué es están ingresando y que el programa en sí no entiende muy bien o es capaz de traducir la información que recibe. 
+
+**Analiza el código, observa los cambios. Ejecuta y luego observa la consola. ¿Qué ves?**
+
+Ahora la comunicación es mejor ya que se implementó la técnica del framing.
+
+**¿Qué cambios tienen los programas y ¿Qué puedes observar en la consola del editor de p5.js?**
+
+Ahora la comunicación es más fácil entre los 2 programas ya que se enmarca hubo un inicio y un final para los datos. Lo cual puede hacer el programa más robusto pero también asegura una buena comunicación y manejo de los datos.
+
+### Actividad 04
+
