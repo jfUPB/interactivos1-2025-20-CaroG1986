@@ -447,7 +447,7 @@ function keyReleased() {
 
   <img width="1919" height="869" alt="image" src="https://github.com/user-attachments/assets/7a470c9a-edd7-4e74-90b5-9f5f7ca1855a" />
 
-  -Efectivamente no funcionó, ni siquiera corrió por que dice que el createSerial no esta definido.
+- Efectivamente no funcionó, ni siquiera corrió por que dice que el createSerial no esta definido.
 
 
 **Segundo intento** ⭐
@@ -730,7 +730,7 @@ function keyReleased() {
 
 <img width="1919" height="863" alt="image" src="https://github.com/user-attachments/assets/081d75db-4ed2-4ed7-a015-a141f7b3c434" />
 
--Como se puede ver si corre y se conecta pero no aparece nada del programa, así que voy a revisar de nuevo
+- Como se puede ver si corre y se conecta pero no aparece nada del programa, así que voy a revisar de nuevo
 
 **Tercer Intento** ⭐
 
@@ -959,7 +959,7 @@ function keyReleased() {
 <img width="1918" height="871" alt="image" src="https://github.com/user-attachments/assets/23f1457e-e3a1-40e5-910b-d1b9d5baed0a" />
 <img width="1919" height="872" alt="image" src="https://github.com/user-attachments/assets/48673733-7437-4848-858a-6bfa625bbe9d" />
 
--Lo logre (yeyyyyyy), resulta que en intento anterior nunca llame a la lectura del puerto en la función draw, por eso es que no me funcionaba.
+- Lo logre (yeyyyyyy), resulta que en intento anterior nunca llame a la lectura del puerto en la función draw, por eso es que no me funcionaba.
 -Ahora que ya puede ver su funcionamiento siento que si fluye mucho más rápido que cuando lo intentamos la vez pasada, siento que fluye más, supongo que por ser más eficiente.
 
 ### Autoevaluación 🧑‍🚀
@@ -972,4 +972,5 @@ function keyReleased() {
 | **Calidad de experimentación:**  | Logrado   | Para esta parte aunque no hice más experimentos creativos, si probe el programa de distintas formas para poder estudiar su comportamiento, por ejemplo en [este experimento](#exp4) cambie los valores directamente para saber que ocurriría.|
 | **Análisis y reflexión:**        | Logrado     | Durante toda la bitacora estuve proporcionando evidencia de mis experimentos y descomponiendo el código por partes para una mejor comprensión, como en [el primer experimento](#exp1), además tambíen analize como el framing apesar de ser más robusto es til e importante para una comunicación guiada y mejorada. |
 | **Apropiación y Articulación de Conceptos:**  | Logrado    | En esta unidad me asegure de descompener las partes que podría no entender y traducirlas a mi propio "idioma", además en [este segmento](#exp3) también revise que otros usos y posibilidades tiene el framing en ambitos de mi interes, como la animación |
+
 
