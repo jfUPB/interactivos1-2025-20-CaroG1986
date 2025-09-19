@@ -23,6 +23,8 @@ Los datos que esta enviando el micro:bit son su posición, ya sea en X o en Y, y
 
 **¿Cómo es la estructura del protocolo ASCII usado?** ⭐
 
+<a name="exp1"></a>
+
 Básicamente los datos estan estructurados de forma que se separan por conjuntos por medio del salto de renglon, y entre el conjunto se dividen por comas "," esto para que se puede identificar que dato es el que se esta recibiendo.
 
 >En el código se ve de esta forma:
@@ -125,9 +127,11 @@ Despúes en esta información se usa en esta función y se ejecuta un acción de
 > 
 >  posible enviar números positivos y negativos para los valores de xValue y yValue. ¿Cómo se verían esos números en el formato '>2h2B'? ⭐
 > <img width="1007" height="733" alt="image" src="https://github.com/user-attachments/assets/33dea758-c78d-4ba1-84a9-78889931300b" />
+<a name="exp4"></a>
 >los primeros que se ven como dos cuadrados son números positivos y los segundos que son cuatro cuadrados son los números negativos. Esto logré verificarlo enviando valores conocidos desde el editor de Python para validar bien la lectura de esos datos.
 
 <img width="999" height="731" alt="image" src="https://github.com/user-attachments/assets/ec1062f7-cd62-4d9e-a575-0a5ef0a09893" />
+<a name="exp2"></a>
 
 >¿Qué diferencias ves entre los datos en ASCII y en binario? ¿Qué ventajas y desventajas ves en usar un formato binario en lugar de texto en ASCII? ¿Qué ventajas y desventajas ves en usar un formato ASCII en lugar de binario? ⭐
 >
@@ -138,7 +142,7 @@ Despúes en esta información se usa en esta función y se ejecuta un acción de
 >
 >Por esto mismo, una desventaja del ASCII es su peso y la falta de efectividad que podía tener una computadora a la hora de traducir o leer dicho formato.
 
-### Actividad 03
+### Actividad 03 🧑‍🚀
 
  **Explica por qué en la unidad anterior teníamos que enviar la información delimitada y además marcada con un salto de línea y ahora no es necesario.** ⭐
 
@@ -148,6 +152,8 @@ Esto es debido al cambio de formato, este ahora lee separando los datos por sus 
 
 El principal cambio que puedo observar es que en el anterior se daba la instrucción leer los hasta "/n" y que se separaran entre si con una coma, en cabio aquí, si no me equivoco, esta separandolos según su orden. También es cierto que ahora a diferencia de ejemplos anteriores se proporciona con antelación la cantidad de bytes que va atener cada parte del código, por lo que no es necesario ningún simbolo para separalos
 
+<a name="exp3"></a>
+
 >**CUANDO SE EJECUTA EL CÓDIGO**
 <img width="938" height="721" alt="image" src="https://github.com/user-attachments/assets/96da6518-3eb7-4b06-9789-cea244e18ce5" />
 
@@ -155,7 +161,7 @@ El principal cambio que puedo observar es que en el anterior se daba la instrucc
 
 Supongo que este error se causó porque hay algún error al momento de leer los datos qué es están ingresando y que el programa en sí no entiende muy bien o es capaz de traducir la información que recibe. 
 
-**Analiza el código, observa los cambios. Ejecuta y luego observa la consola. ¿Qué ves?**
+**Analiza el código, observa los cambios. Ejecuta y luego observa la consola. ¿Qué ves?** ⭐
 
 Ahora la comunicación es mejor ya que se implementó la técnica del framing. Framing se traduce literalmente como enmarcado, y eso es literalmente lo que se busca hacer con este código es decir delimitarlo con un fin y un principio. En este caso lo que se está haciendo es indicar un header ( una cabeza o inicio, posicionado en el byte 0 ) y un checksum (el fin que en este caso es el módulo de la suma de los datos anteriores)
 
@@ -170,13 +176,13 @@ Ahora la comunicación es mejor ya que se implementó la técnica del framing. F
 >
 >👉Relacionado con estos métodos de separación, de hecho se podría decir que hay varios ya que no solo es el tiempo ( como lo mencioné antes) o por UART ( que es el ejemplo que estamos trabajando actualmente, con un tamaño fijo), también se clasifican por carácteres o por patrones.
 
-**¿Qué cambios tienen los programas y ¿Qué puedes observar en la consola del editor de p5.js?**
+**¿Qué cambios tienen los programas y ¿Qué puedes observar en la consola del editor de p5.js?** ⭐
 
 Ahora la comunicación es más fácil entre los 2 programas ya que se enmarca hubo un inicio y un final para los datos. Lo cual puede hacer el programa más robusto pero también asegura una buena comunicación y manejo de los datos.
 
-### Actividad 04
+### Actividad 04 🧑‍🚀
 
-**Primer intento** 
+**Primer intento** ⭐
 
 ``` java script
 // P_2_1_3_04
@@ -439,7 +445,7 @@ function keyReleased() {
 - No estoy muy segura si este código funciona porque no he podido verificarlo en el micro:bit. Para esto quite la partes que ya no tenian sentido como leer hasta las "," o hasta "/n" porque ahora el puerto serial se comunica con un lenguaje diferente.
 -  También reemplaze ciertas cosas con el código del ejemplo anterior pero aun así no se si funciona.
 
-**Segundo intento**
+**Segundo intento** ⭐
 
 ```java script
 function draw() {
@@ -574,7 +580,13 @@ function keyReleased() {
 
 - Este tampoco estoy segura si funciona pero según yo ya mejoró porque compare bien cada parte del código para ver exactamente que se cambio.
 
-### Autoevaluación
+### Autoevaluación 🧑‍🚀
 
-**Mi nota propuesta:**
+**Mi nota propuesta: 4.45**
 
+| **Criterio** | **Autoevaluación**    | **Justificación/evidencias** |
+|:----------|:----------:|--------:|
+| **Profundidad de indagación:**   | Excelente  | Siento que en esta unidad tuve la oportunidad de profundizar mucho en los temas propuestos, además de preguntarme cosas más allá, a comparación de las anteriores, por ejemplo en [esta explicación](#exp2) pude investigar más a fondo en que casos se usaban estos dos formatos y en  [esta parte](#exp3) investigue más a fondo el tipo de framing que estabamos usado para este experimento.|
+| **Calidad de experimentación:**  | Logrado   | Para esta parte aunque no hice más experimentos creativos, si probe el programa de distintas formas para poder estudiar su comportamiento, por ejemplo en [este experimento](#exp4) cambie los valores directamente para saber que ocurriría.|
+| **Análisis y reflexión:**        | Logrado     | Durante toda la bitacora estuve proporcionando evidencia de mis experimentos y descomponiendo el código por partes para una mejor comprensión, como en [el primer experimento](#exp1), además tambíen analize como el framing apesar de ser más robusto es til e importante para una comunicación guiada y mejorada. |
+| **Apropiación y Articulación de Conceptos:**  | Logrado    | En esta unidad me asegure de descompener las partes que podría no entender y traducirlas a mi propio "idioma", además en [este segmento](#exp3) también revise que otros usos y posibilidades tiene el framing en ambitos de mi interes, como la animación |
