@@ -960,7 +960,7 @@ function keyReleased() {
 <img width="1919" height="872" alt="image" src="https://github.com/user-attachments/assets/48673733-7437-4848-858a-6bfa625bbe9d" />
 
 - Lo logre (yeyyyyyy), resulta que en intento anterior nunca llame a la lectura del puerto en la función draw, por eso es que no me funcionaba.
--Ahora que ya puede ver su funcionamiento siento que si fluye mucho más rápido que cuando lo intentamos la vez pasada, siento que fluye más, supongo que por ser más eficiente.
+- Ahora que ya puede ver su funcionamiento siento que si fluye mucho más rápido que cuando lo intentamos la vez pasada, siento que fluye más, supongo que por ser más eficiente.
 
 ### Autoevaluación 🧑‍🚀
 
@@ -972,5 +972,6 @@ function keyReleased() {
 | **Calidad de experimentación:**  | Logrado   | Para esta parte aunque no hice más experimentos creativos, si probe el programa de distintas formas para poder estudiar su comportamiento, por ejemplo en [este experimento](#exp4) cambie los valores directamente para saber que ocurriría.|
 | **Análisis y reflexión:**        | Logrado     | Durante toda la bitacora estuve proporcionando evidencia de mis experimentos y descomponiendo el código por partes para una mejor comprensión, como en [el primer experimento](#exp1), además tambíen analize como el framing apesar de ser más robusto es til e importante para una comunicación guiada y mejorada. |
 | **Apropiación y Articulación de Conceptos:**  | Logrado    | En esta unidad me asegure de descompener las partes que podría no entender y traducirlas a mi propio "idioma", además en [este segmento](#exp3) también revise que otros usos y posibilidades tiene el framing en ambitos de mi interes, como la animación |
+
 
 
