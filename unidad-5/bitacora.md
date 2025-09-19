@@ -445,9 +445,157 @@ function keyReleased() {
 - No estoy muy segura si este código funciona porque no he podido verificarlo en el micro:bit. Para esto quite la partes que ya no tenian sentido como leer hasta las "," o hasta "/n" porque ahora el puerto serial se comunica con un lenguaje diferente.
 -  También reemplaze ciertas cosas con el código del ejemplo anterior pero aun así no se si funciona.
 
+  <img width="1919" height="869" alt="image" src="https://github.com/user-attachments/assets/7a470c9a-edd7-4e74-90b5-9f5f7ca1855a" />
+
+  -Efectivamente no funcionó, ni siquiera corrió por que dice que el createSerial no esta definido.
+
+
 **Segundo intento** ⭐
 
 ```java script
+// P_2_1_3_04
+//
+// Generative Gestaltung – Creative Coding im Web
+// ISBN: 978-3-87439-902-9, First Edition, Hermann Schmidt, Mainz, 2018
+// Benedikt Groß, Hartmut Bohnacker, Julia Laub, Claudius Lazzeroni
+// with contributions by Joey Lee and Niels Poldervaart
+// Copyright 2018
+//
+// http://www.generative-gestaltung.de
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * changing positions of stapled circles in a grid
+ *
+ * MOUSE
+ * position x          : module detail
+ * position y          : module parameter
+ *
+ * KEYS
+ * 1-3                 : draw mode
+ * arrow left/right    : number of tiles horizontally
+ * arrow up/down       : number of tiles vertically
+ * s                   : save png
+ */
+
+let serialBuffer=[];
+
+"use strict";
+
+var count = 0;
+var tileCountX = 6;
+var tileCountY = 6;
+
+var drawMode = 1;
+
+let port;
+let connectBtn;
+//let connectionInitialized = false;
+let microBitConnected = false;
+
+const STATES = {
+  WAIT_MICROBIT_CONNECTION: "WAITMICROBIT_CONNECTION",
+  RUNNING: "RUNNING",
+};
+
+let appState = STATES.WAIT_MICROBIT_CONNECTION;
+let microBitX = 0;
+let microBitY = 0;
+let microBitAState = false;
+let microBitBState = false;
+let prevmicroBitAState = false;
+let prevmicroBitBState = false;
+let cnv;
+
+function setup() {
+ cnv = createCanvas(windowWidth, windowHeight);
+  rectMode(CENTER);
+  port = createSerial();
+  connectBtn = createButton("Connect to micro:bit");
+  connectBtn.position(0, 0);
+  connectBtn.mousePressed(connectBtnClick);
+}
+
+function connectBtnClick() {
+  if (!port.opened()) {
+    port.open("MicroPython", 115200);
+    connectionInitialized = false;
+  } else {
+    port.close();
+  }
+}
+
+function updateButtonStates(newAState, newBState) {
+  // Generar eventos de keypressed
+  if (newAState === false && prevmicroBitAState === true) {
+    print("A released");
+    drawMode = 2;
+  }
+
+  // Generar eventos de key released
+  if (newBState === false && prevmicroBitBState === true) {
+    drawMode = 3;
+    print("B released");
+  }
+
+  prevmicroBitAState = newAState;
+  prevmicroBitBState = newBState;
+}
+
+function readSerialData() {
+  // Acumula los bytes recibidos en el buffer
+  let available = port.availableBytes();
+  if (available > 0) {
+    let newData = port.readBytes(available);
+    serialBuffer = serialBuffer.concat(newData);
+  }
+
+  // Procesa el buffer mientras tenga al menos 8 bytes (tamaño de un paquete)
+  while (serialBuffer.length >= 8) {
+    // Busca el header (0xAA)
+    if (serialBuffer[0] !== 0xaa) {
+      serialBuffer.shift(); // Descarta bytes hasta encontrar el header
+      continue;
+    }
+
+    // Si hay menos de 8 bytes, espera a que llegue el paquete completo
+    if (serialBuffer.length < 8) break;
+
+    // Extrae los 8 bytes del paquete
+    let packet = serialBuffer.slice(0, 8);
+    serialBuffer.splice(0, 8); // Elimina el paquete procesado del buffer
+
+    // Separa datos y checksum
+    let dataBytes = packet.slice(1, 7);
+    let receivedChecksum = packet[7];
+    // Calcula el checksum sumando los datos y aplicando módulo 256
+    let computedChecksum = dataBytes.reduce((acc, val) => acc + val, 0) % 256;
+
+    if (computedChecksum !== receivedChecksum) {
+      console.log("Checksum error in packet");
+      continue; // Descarta el paquete si el checksum no es válido
+    }
+
+    // Si el paquete es válido, extrae los valores
+    let buffer = new Uint8Array(dataBytes).buffer;
+    let view = new DataView(buffer);
+    microBitX = view.getInt16(0) + windowWidth / 2;
+    microBitY = view.getInt16(2) + windowHeight / 2;
+    microBitAState = view.getUint8(4) === 1;
+    microBitBState = view.getUint8(5) === 1;
+    updateButtonStates(microBitAState, microBitBState);
+
+  }
+}
+
 function draw() {
   if (!port.opened()) {
     connectBtn.html("Connect to micro:bit");
@@ -580,6 +728,240 @@ function keyReleased() {
 
 - Este tampoco estoy segura si funciona pero según yo ya mejoró porque compare bien cada parte del código para ver exactamente que se cambio.
 
+<img width="1919" height="863" alt="image" src="https://github.com/user-attachments/assets/081d75db-4ed2-4ed7-a015-a141f7b3c434" />
+
+-Como se puede ver si corre y se conecta pero no aparece nada del programa, así que voy a revisar de nuevo
+
+**Tercer Intento** ⭐
+
+>Y final
+
+[Este es el link](https://editor.p5js.org/CaroG1986/sketches/9IIE0WloA)
+
+```java scrpt
+let serialBuffer = [];
+
+"use strict";
+
+var count = 0;
+var tileCountX = 6;
+var tileCountY = 6;
+
+var drawMode = 1;
+
+let port;
+let connectBtn;
+let microBitConnected = false;
+
+const STATES = {
+  WAIT_MICROBIT_CONNECTION: "WAIT_MICROBIT_CONNECTION",
+  RUNNING: "RUNNING",
+};
+
+let appState = STATES.WAIT_MICROBIT_CONNECTION;
+let microBitX = 0;
+let microBitY = 0;
+let microBitAState = false;
+let microBitBState = false;
+let prevmicroBitAState = false;
+let prevmicroBitBState = false;
+let cnv;
+
+function setup() {
+  cnv = createCanvas(windowWidth, windowHeight);
+  rectMode(CENTER);
+  port = createSerial();
+  connectBtn = createButton("Connect to micro:bit");
+  connectBtn.position(0, 0);
+  connectBtn.mousePressed(connectBtnClick);
+}
+
+function connectBtnClick() {
+  if (!port.opened()) {
+    port.open("MicroPython", 115200);
+  } else {
+    port.close();
+  }
+}
+
+function updateButtonStates(newAState, newBState) {
+  if (newAState === false && prevmicroBitAState === true) {
+    print("A released");
+    drawMode = 2;
+  }
+
+  if (newBState === false && prevmicroBitBState === true) {
+    drawMode = 3;
+    print("B released");
+  }
+
+  prevmicroBitAState = newAState;
+  prevmicroBitBState = newBState;
+}
+
+function readSerialData() {
+  let available = port.availableBytes();
+  if (available > 0) {
+    let newData = port.readBytes(available);
+    serialBuffer = serialBuffer.concat(newData);
+  }
+
+  while (serialBuffer.length >= 8) {
+    if (serialBuffer[0] !== 0xaa) {
+      serialBuffer.shift();
+      continue;
+    }
+
+    if (serialBuffer.length < 8) break;
+
+    let packet = serialBuffer.slice(0, 8);
+    serialBuffer.splice(0, 8);
+
+    let dataBytes = packet.slice(1, 7);
+    let receivedChecksum = packet[7];
+    let computedChecksum = dataBytes.reduce((acc, val) => acc + val, 0) % 256;
+
+    if (computedChecksum !== receivedChecksum) {
+      console.log("Checksum error in packet");
+      continue;
+    }
+
+    let buffer = new Uint8Array(dataBytes).buffer;
+    let view = new DataView(buffer);
+    microBitX = view.getInt16(0) + windowWidth / 2;
+    microBitY = view.getInt16(2) + windowHeight / 2;
+    microBitAState = view.getUint8(4) === 1;
+    microBitBState = view.getUint8(5) === 1;
+    updateButtonStates(microBitAState, microBitBState);
+  }
+}
+
+function draw() {
+  if (!port.opened()) {
+    connectBtn.html("Connect to micro:bit");
+    microBitConnected = false;
+  } else {
+    microBitConnected = true;
+    connectBtn.html("Disconnect");
+  }
+
+  switch (appState) {
+    case STATES.WAIT_MICROBIT_CONNECTION:
+      if (microBitConnected === true) {
+        print("Microbit ready to draw");
+        noCursor();
+        prevmicroBitAState = false;
+        prevmicroBitBState = false;
+        appState = STATES.RUNNING;
+      }
+      break;
+
+    case STATES.RUNNING:
+      if (microBitConnected === false) {
+        print("Waiting microbit connection");
+        cursor();
+        appState = STATES.WAIT_MICROBIT_CONNECTION;
+      }
+
+      // 🔹 Leer datos cada frame
+      readSerialData();
+
+      // 🔹 Generar arte siempre, aunque A no esté presionado
+      clear();
+      noFill();
+
+      count = microBitX / 10 + 10;
+      var para = microBitY / height;
+
+      var tileWidth = width / tileCountX;
+      var tileHeight = height / tileCountY;
+
+      for (var gridY = 0; gridY <= tileCountY; gridY++) {
+        for (var gridX = 0; gridX <= tileCountX; gridX++) {
+          var posX = tileWidth * gridX + tileWidth / 2;
+          var posY = tileHeight * gridY + tileHeight / 2;
+
+          push();
+          translate(posX, posY);
+
+          switch (drawMode) {
+            case 1:
+              stroke(0);
+              for (var i = 0; i < count; i++) {
+                rect(0, 0, tileWidth, tileHeight);
+                scale(1 - 3 / count);
+                rotate(para * 0.1);
+              }
+              break;
+
+            case 2:
+              noStroke();
+              for (var i = 0; i < count; i++) {
+                var gradient = lerpColor(
+                  color(0, 0),
+                  color(166, 141, 5),
+                  i / count
+                );
+                fill(gradient, (i / count) * 200);
+                rotate(QUARTER_PI);
+                rect(0, 0, tileWidth, tileHeight);
+                scale(1 - 3 / count);
+                rotate(para * 1.5);
+              }
+              break;
+
+            case 3:
+              noStroke();
+              for (var i = 0; i < count; i++) {
+                var gradient = lerpColor(
+                  color(0, 130, 164),
+                  color(255),
+                  i / count
+                );
+                fill(gradient, 170);
+
+                push();
+                translate(4 * i, 0);
+                ellipse(0, 0, tileWidth / 4, tileHeight / 4);
+                pop();
+
+                push();
+                translate(-4 * i, 0);
+                ellipse(0, 0, tileWidth / 4, tileHeight / 4);
+                pop();
+
+                scale(1 - 1.5 / count);
+                rotate(para * 1.5);
+              }
+              break;
+          }
+
+          pop();
+        }
+      }
+
+      break; // cierre case RUNNING
+  } // cierre switch
+} // cierre draw()
+
+function keyReleased() {
+  console.log(key);
+  if (key == "s" || key == "S") saveCanvas(cnv);
+  if (key == "1") drawMode = 1;
+  if (key == "2") drawMode = 2;
+  if (key == "3") drawMode = 3;
+  if (keyCode == DOWN_ARROW) tileCountY = max(tileCountY - 1, 1);
+  if (keyCode == UP_ARROW) tileCountY += 1;
+  if (keyCode == LEFT_ARROW) tileCountX = max(tileCountX - 1, 1);
+  if (keyCode == RIGHT_ARROW) tileCountX += 1;
+}
+```
+<img width="1918" height="871" alt="image" src="https://github.com/user-attachments/assets/23f1457e-e3a1-40e5-910b-d1b9d5baed0a" />
+<img width="1919" height="872" alt="image" src="https://github.com/user-attachments/assets/48673733-7437-4848-858a-6bfa625bbe9d" />
+
+-Lo logre (yeyyyyyy), resulta que en intento anterior nunca llame a la lectura del puerto en la función draw, por eso es que no me funcionaba.
+-Ahora que ya puede ver su funcionamiento siento que si fluye mucho más rápido que cuando lo intentamos la vez pasada, siento que fluye más, supongo que por ser más eficiente.
+
 ### Autoevaluación 🧑‍🚀
 
 **Mi nota propuesta: 4.45**
@@ -590,3 +972,4 @@ function keyReleased() {
 | **Calidad de experimentación:**  | Logrado   | Para esta parte aunque no hice más experimentos creativos, si probe el programa de distintas formas para poder estudiar su comportamiento, por ejemplo en [este experimento](#exp4) cambie los valores directamente para saber que ocurriría.|
 | **Análisis y reflexión:**        | Logrado     | Durante toda la bitacora estuve proporcionando evidencia de mis experimentos y descomponiendo el código por partes para una mejor comprensión, como en [el primer experimento](#exp1), además tambíen analize como el framing apesar de ser más robusto es til e importante para una comunicación guiada y mejorada. |
 | **Apropiación y Articulación de Conceptos:**  | Logrado    | En esta unidad me asegure de descompener las partes que podría no entender y traducirlas a mi propio "idioma", además en [este segmento](#exp3) también revise que otros usos y posibilidades tiene el framing en ambitos de mi interes, como la animación |
+
