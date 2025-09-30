@@ -39,9 +39,24 @@ Esto que se ve es el mismo código que se puede ver en el servidor de java scrip
 
 **Piensa en cómo te conectas a Internet en casa o en la Universidad. ¿Usas Wi-Fi? ¿Un cable de red? Eso es simplemente tu “rampa de acceso” a la gran red de carreteras. ¿Qué pasaría si esa rampa se corta? Anota tus ideas.**
 
+Supongo que en el caso de que se corta la conexión a internet, por ejemplo cuando se va la señal o se va la luz, no habría como un puente de conexión entre el dispositivo que esté utilizando y la página o a la información a la que quisiera llegar.
+
 **¿Puedes identificar otros ejemplos de relaciones Cliente-Servidor en tu vida diaria (no necesariamente digitales)? Por ejemplo, al pedir comida en un restaurante. ¿Quién es el cliente y quién el servidor? ¿Qué se pide y qué se entrega?**
 
+Claro que hay muchas relaciones cliente servidor en la vida cotidiana, entre estas estan: 
+- Pedir un paquete por internet donde el mensajero sería el servidor y el receptor sería el cliente.
+- Cuando te atiende un cajero en un supermercado y él sería el encargado de brindar el servicio procesar la compra.
+- Cuando se llama al servicio al cliente de una empresa y ellos te proporcionan la información que necesites.
+
 **Toma la URL de tu sitio web favorito. Intenta identificar el protocolo, el nombre de dominio y la ruta (si la hay). ¿Qué crees que pasa si solo escribes el nombre de dominio (ej. www.google.com) sin una ruta específica? ¿Qué “página por defecto” crees que te envía el servidor?** 
+
+https://www.youtube.com/watch?v=AZWJNXQAngM
+
+- Protocolo: ahí se puede ver muy claramente que es el https://, que son las reglas estandar que usan los navegadores.
+- Nombre del dominio: este básicamente es www.youtube.com, que es una plataforma de video online.
+- Ruta: watch?v=AZWJNXQAngM, es la ruta, que es básicamente lo que permite saber que video es al que se esta llamando o buscando, en este caso la primera pelicula de equistria girls.
+
+  Al momento de solo poner el nombre del dominio simplemente me lleva a la página oficial de youtube.
 
 **Compara HTTP con los protocolos seriales que usaste.**
 
@@ -144,3 +159,4 @@ Server is listening on http://localhost:3001
 <img width="1917" height="989" alt="image" src="https://github.com/user-attachments/assets/eb187f3b-293b-430d-9b92-42732cb18080" />
 
 **¿Qué aprendiste sobre la variable port y la función listen? Restaura el puerto a 3000.**
+
