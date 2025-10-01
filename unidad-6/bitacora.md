@@ -236,12 +236,29 @@ Se desconecto el cliente de la page1 .Esta parte esta dentro del método que rev
 
 ### Experimento 3 🍓
 
+Básicamente la idea de esta experimiento era demostrar que al mover la page2 se van a ver los datos de esta en la page1 y vicesversa. Eto con el fin de comprender mejor como funciona la conexión entre ambas páginas.
+
 ### Experimento 4 🍓
+
+<img width="803" height="625" alt="image" src="https://github.com/user-attachments/assets/c6e8c8a9-eda3-4385-9385-89dee9813a68" />
+
+**¿Qué puedes concluir y por qué?** 🌸
+
+Con este mensaje se puede ver que al esta parte de la función checkWindowPosition si se esta utilizando y se activa con el movimeinto de la pestaña o el cambiar el tamaño de esta.
 
 ### Experimento 5 🍓
 
 **Cambia el background(220) para que dependa de la distancia entre las ventanas. Puedes calcular la magnitud del resultingVector usando let distancia = resultingVector.mag(); y luego usa map() para convertir esa distancia a un valor de gris o color. background(map(distancia, 0, 1000, 255, 0)); (ajusta el rango 0-1000 según sea necesario).** 🌸
 
+<img width="1728" height="703" alt="image" src="https://github.com/user-attachments/assets/2da540d3-6a19-4c24-a7b7-20dd6145ba3f" />
+
 **Inventa otra modificación creativa.** 🌸
 
+para esta modificación tome como inspiración a mi profesora de metodología, y sus historias el compromiso y no meterse con hombres casados. Consiste en que si estan muy juntos se casan y si los separas se divorcian. 
+
+<img width="1136" height="517" alt="image" src="https://github.com/user-attachments/assets/4e3aeef7-e153-4873-b380-5bb2f2c18838" />
+<img width="1322" height="531" alt="image" src="https://github.com/user-attachments/assets/95e559f2-b8df-4743-84a0-7affe9e23c75" />
+
+
 ## Actividad 5 🍒
+
