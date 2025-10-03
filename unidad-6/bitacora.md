@@ -262,3 +262,504 @@ para esta modificación tome como inspiración a mi profesora de metodología, y
 
 ## Actividad 5 🍒
 
+**Explica tu idea y realiza algunos bocetos.** 🌸
+
+Para la fase de apply la idea que se me ocurrió fue qué programa mostrará dos corazones y dependiendo de qué tan cerca estuvieran uno del otro esos aumentaron o disminuyeran su tamaño. Además de esto cuando las dos páginas de los clientes están muy juntas La idea es que aparezca un texto que digan romance
+
+<img width="958" height="538" alt="image" src="https://github.com/user-attachments/assets/cfe831f0-9a34-4fff-b8c4-137dbf15e553" />
+
+<img width="958" height="537" alt="image" src="https://github.com/user-attachments/assets/e9adc090-aab8-4758-b632-c62bb833eb6d" />
+
+**Implementa tu idea.** 🌸
+
+Así se ven cuando esta muy separados
+
+<img width="1896" height="762" alt="image" src="https://github.com/user-attachments/assets/23121978-1d9e-4594-a3b6-8f6148f2e539" />
+
+Así se ven cuando estan más juntos
+
+<img width="1245" height="757" alt="image" src="https://github.com/user-attachments/assets/d2f55d4b-0c65-44e6-a3a7-d489ed27ca62" />
+
+
+**Incluye todos los códigos (servidor y clientes) en tu bitácora.** 🌸
+
+Servidor 
+
+``` java script
+const express = require('express');
+const http = require('http');
+const socketIO = require('socket.io');
+const path = require('path');
+const app = express();
+const server = http.createServer(app); 
+const io = socketIO(server); 
+const port = 3000;
+
+let page1 = { x: 0, y: 0, width: 100, height: 100 };
+let page2 = { x: 0, y: 0, width: 100, height: 100 };
+let connectedClients = new Map();
+let syncedClients = new Set();
+
+app.use(express.static(path.join(__dirname, 'views')));
+
+app.get('/page1', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'page1.html'));
+});
+
+app.get('/page2', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'page2.html'));
+});
+
+io.on('connection', (socket) => {
+    console.log('A user connected - ID:', socket.id);
+    connectedClients.set(socket.id, { page: null, synced: false });
+    
+    socket.on('disconnect', () => {
+        console.log('User disconnected - ID:', socket.id);
+        connectedClients.delete(socket.id);
+        syncedClients.delete(socket.id);
+        // Notificar a otros clientes que se perdió la sincronización
+        socket.broadcast.emit('peerDisconnected');
+    });
+
+    socket.on('win1update', (window1, sendid) => {
+        console.log('Received win1update from ID:', socket.id, 'Data:', window1);
+        if (isValidWindowData(window1)) {
+            page1 = window1;
+            connectedClients.set(socket.id, { page: 'page1', synced: false });
+            socket.broadcast.emit('getdata', { data: page1, from: 'page1' });
+            checkAndNotifySyncStatus();
+        }
+    });
+
+    socket.on('win2update', (window2, sendid) => {
+        console.log('Received win2update from ID:', socket.id, 'Data:', window2);
+        if (isValidWindowData(window2)) {
+            page2 = window2;
+            connectedClients.set(socket.id, { page: 'page2', synced: false });
+            socket.broadcast.emit('getdata', { data: page2, from: 'page2' });
+            checkAndNotifySyncStatus();
+        }
+    });
+
+    socket.on('requestSync', () => {
+        const clientInfo = connectedClients.get(socket.id);
+        if (clientInfo?.page === 'page1') {
+            socket.emit('getdata', { data: page2, from: 'page2' });
+        } else if (clientInfo?.page === 'page2') {
+            socket.emit('getdata', { data: page1, from: 'page1' });
+        }
+    });
+
+    socket.on('confirmSync', () => {
+        syncedClients.add(socket.id);
+        const clientInfo = connectedClients.get(socket.id);
+        if (clientInfo) {
+            connectedClients.set(socket.id, { ...clientInfo, synced: true });
+        }
+        checkAndNotifySyncStatus();
+    });    
+});
+
+function isValidWindowData(data) {
+    return data && 
+           typeof data.x === 'number' && 
+           typeof data.y === 'number' && 
+           typeof data.width === 'number' && data.width > 0 &&
+           typeof data.height === 'number' && data.height > 0;
+}
+
+function checkAndNotifySyncStatus() {
+    const page1Clients = Array.from(connectedClients.entries()).filter(([id, info]) => info.page === 'page1');
+    const page2Clients = Array.from(connectedClients.entries()).filter(([id, info]) => info.page === 'page2');
+    
+    const bothPagesConnected = page1Clients.length > 0 && page2Clients.length > 0;
+    const allClientsSynced = Array.from(connectedClients.keys()).every(id => syncedClients.has(id));
+    const hasMinimumClients = connectedClients.size >= 2;
+
+    console.log(`Debug - Connected clients: ${connectedClients.size}, Page1: ${page1Clients.length}, Page2: ${page2Clients.length}, Synced: ${syncedClients.size}`);
+
+    
+    if (bothPagesConnected && allClientsSynced && hasMinimumClients) {
+        io.emit('fullySynced', true);
+        console.log('All clients are fully synced');
+    } else {
+        io.emit('fullySynced', false);
+        console.log(`Sync status: pages=${bothPagesConnected}, synced=${allClientsSynced}, clients=${connectedClients.size}`);
+    }
+}
+
+server.listen(port, () => {
+    console.log(`Server is listening on http://localhost:${port}`);
+});
+```
+
+Cliente page1
+
+``` java script
+let currentPageData = {
+    x: window.screenX,
+    y: window.screenY,
+    width: window.innerWidth,
+    height: window.innerHeight
+}
+
+let previousPageData = {
+    x: window.screenX,
+    y: window.screenY,
+    width: window.innerWidth,
+    height: window.innerHeight
+};
+
+let remotePageData = { x: 0, y: 0, width: 100, height: 100 };
+let point1 = [currentPageData.width / 2, currentPageData.height / 2];
+let socket;
+let isConnected = false;
+let hasRemoteData = false;
+let isFullySynced = false;
+let connectionTimeout;
+
+function setup() {
+    createCanvas(windowWidth, windowHeight);
+    frameRate(60);
+    socket = io();
+
+    socket.on('connect', () => {
+        console.log('Connected with ID:', socket.id);
+        isConnected = true;
+        socket.emit('win1update', currentPageData, socket.id);
+        
+        // Solicitar sincronización después de un breve delay
+        setTimeout(() => {
+            socket.emit('requestSync');
+        }, 500);
+    });
+
+    socket.on('getdata', (response) => {
+        if (response && response.data && isValidRemoteData(response.data)) {
+            remotePageData = response.data;
+            hasRemoteData = true;
+            console.log('Received valid remote data:', remotePageData);
+            socket.emit('confirmSync');
+        }
+    });
+
+    socket.on('fullySynced', (synced) => {
+        isFullySynced = synced;
+        console.log('Sync status:', synced ? 'SYNCED' : 'NOT SYNCED');
+    });
+
+    socket.on('peerDisconnected', () => {
+        hasRemoteData = false;
+        isFullySynced = false;
+        console.log('Peer disconnected, waiting for reconnection...');
+    });
+
+    socket.on('disconnect', () => {
+        isConnected = false;
+        hasRemoteData = false;
+        isFullySynced = false;
+        console.log('Disconnected from server');
+    });
+}
+
+function isValidRemoteData(data) {
+    return data && 
+           typeof data.x === 'number' && 
+           typeof data.y === 'number' && 
+           typeof data.width === 'number' && data.width > 0 &&
+           typeof data.height === 'number' && data.height > 0;
+}
+
+function checkWindowPosition() {
+    currentPageData = {
+        x: window.screenX,
+        y: window.screenY,
+        width: window.innerWidth,
+        height: window.innerHeight
+    };
+
+    if (currentPageData.x !== previousPageData.x || currentPageData.y !== previousPageData.y || 
+        currentPageData.width !== previousPageData.width || currentPageData.height !== previousPageData.height) {
+
+        point1 = [currentPageData.width / 2, currentPageData.height / 2]
+        socket.emit('win1update', currentPageData, socket.id);
+        previousPageData = currentPageData;
+    }
+}
+
+
+function draw() {
+    background(220);
+    let vector1 = createVector(currentPageData.x, currentPageData.y);
+    let vector2 = createVector(remotePageData.x, remotePageData.y);
+    let resultingVector = createVector(vector2.x - vector1.x, vector2.y - vector1.y);
+    
+    if (!isConnected) {
+        showStatus('Conectando al servidor...', color(255, 165, 0));
+        return;
+    }
+    
+    if (!hasRemoteData) {
+        showStatus('Esperando conexión de la otra ventana...', color(255, 165, 0));
+        return;
+    }
+    
+    if (!isFullySynced) {
+        showStatus('Sincronizando datos...', color(255, 165, 0));
+        return;
+    }
+
+    // Solo dibujar cuando esté completamente sincronizado
+    let scale = map(resultingVector.mag(), 0, 1000,2,0.1);
+    console.log(`scale: ${scale}`);
+    drawHeart(point1[0], point1[1],scale);
+    checkWindowPosition();
+    
+  
+    if (resultingVector.mag() < 500)
+    {
+            
+        textSize(30);
+        textAlign(CENTER, CENTER);
+        noStroke();
+        fill(0, 0, 0, 150);
+        text("Romance", width / 2, 1*height / 2);
+      
+    }
+   
+    stroke(50);
+    strokeWeight(20);
+    //drawCircle(resultingVector.x + remotePageData.width / 2, resultingVector.y + remotePageData.height / 2);
+    //line(point1[0], point1[1], resultingVector.x + remotePageData.width / 2, resultingVector.y + remotePageData.height / 2);
+}
+
+function showStatus(message, statusColor) {
+    textSize(24);
+    textAlign(CENTER, CENTER);
+    noStroke();
+    // Dibujar rectángulo de fondo para el texto
+    fill(0, 0, 0, 150); // Negro semi-transparente
+    rectMode(CENTER);
+    let textW = textWidth(message) + 40;
+    let textH = 40;
+    rect(width / 2, 1*height / 6, textW, textH, 10);
+    // Dibujar el texto
+    fill(statusColor);
+    text(message, width / 2, 1*height / 6);
+}
+
+function drawHeart(x, y,scale) {
+    fill(255, 0, 0);
+    noStroke();
+  
+    push();
+    translate(x,y);
+
+
+
+     // dos círculos arriba
+  ellipse(- 40*scale, - 40*scale, 100*scale, 100*scale);
+  ellipse(40*scale,- 40*scale, 100*scale, 100*scale);
+  
+  // triángulo abajo
+  triangle(- 80*scale, - 10*scale, 80*scale,- 10*scale, 0, 80*scale);
+
+    pop();
+
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+}
+```
+
+Page 2
+
+``` java script
+let currentPageData = {
+    x: window.screenX,
+    y: window.screenY,
+    width: window.innerWidth,
+    height: window.innerHeight
+
+}
+
+let previousPageData = {
+    x: window.screenX,
+    y: window.screenY,
+    width: window.innerWidth,
+    height: window.innerHeight
+};
+
+let remotePageData = { x: 0, y: 0, width: 100, height: 100 };
+let point2 = [currentPageData.width / 2, currentPageData.height / 2];
+let socket;
+let isConnected = false;
+let hasRemoteData = false;
+let isFullySynced = false;
+let connectionTimeout;
+
+function setup() {
+    createCanvas(windowWidth, windowHeight);
+    frameRate(60);
+    socket = io();
+
+    socket.on('connect', () => {
+        console.log('Connected with ID:', socket.id);
+        isConnected = true;
+        socket.emit('win2update', currentPageData, socket.id);
+        
+        // Solicitar sincronización después de un breve delay
+        setTimeout(() => {
+            socket.emit('requestSync');
+        }, 500);
+    });
+
+    socket.on('getdata', (response) => {
+        if (response && response.data && isValidRemoteData(response.data)) {
+            remotePageData = response.data;
+            hasRemoteData = true;
+            console.log('Received valid remote data:', remotePageData);
+            socket.emit('confirmSync');
+        }
+    });
+
+    socket.on('fullySynced', (synced) => {
+        isFullySynced = synced;
+        console.log('Sync status:', synced ? 'SYNCED' : 'NOT SYNCED');
+    });
+
+    socket.on('peerDisconnected', () => {
+        hasRemoteData = false;
+        isFullySynced = false;
+        console.log('Peer disconnected, waiting for reconnection...');
+    });
+
+    socket.on('disconnect', () => {
+        isConnected = false;
+        hasRemoteData = false;
+        isFullySynced = false;
+        console.log('Disconnected from server');
+    });
+}
+
+function isValidRemoteData(data) {
+    return data && 
+           typeof data.x === 'number' && 
+           typeof data.y === 'number' && 
+           typeof data.width === 'number' && data.width > 0 &&
+           typeof data.height === 'number' && data.height > 0;
+}
+
+function checkWindowPosition() {
+    currentPageData = {
+        x: window.screenX,
+        y: window.screenY,
+        width: window.innerWidth,
+        height: window.innerHeight
+    };
+
+    if (currentPageData.x !== previousPageData.x || currentPageData.y !== previousPageData.y || 
+        currentPageData.width !== previousPageData.width || currentPageData.height !== previousPageData.height) {
+
+        //console.log('In checkWindowPosition the if statament is true');
+
+        point2 = [currentPageData.width / 2, currentPageData.height / 2]
+        socket.emit('win2update', currentPageData, socket.id);
+        
+        previousPageData = currentPageData; 
+    }
+}
+
+
+function draw() {
+
+    //let distancia = resultingVector.mag();
+    background(220);
+
+    
+    if (!isConnected) {
+        showStatus('Conectando al servidor...', color(255, 165, 0));
+        return;
+    }
+    
+    if (!hasRemoteData) {
+        showStatus('Esperando conexión de la otra ventana...', color(255, 165, 0));
+        return;
+    }
+    
+    if (!isFullySynced) {
+        showStatus('Sincronizando datos...', color(255, 165, 0));
+        return;
+    }
+     let vector2 = createVector(remotePageData.x, remotePageData.y);
+    let vector1 = createVector(currentPageData.x, currentPageData.y);
+    let resultingVector = createVector(vector2.x - vector1.x, vector2.y - vector1.y);
+    // Solo dibujar cuando esté completamente sincronizado
+
+    let scale = map(resultingVector.mag(), 0, 1000,2,0.1);
+    console.log(`scale: ${scale}`);
+
+    drawHeart(point2[0], point2[1],scale);
+    checkWindowPosition();
+     if (resultingVector.mag() < 500)
+    {
+            
+        textSize(30);
+        textAlign(CENTER, CENTER);
+        noStroke();
+        fill(0, 0, 0, 150);
+        text("Romance", width / 2, 1*height / 2);
+      
+    }
+    stroke(50);
+    strokeWeight(20);
+    //drawCircle(resultingVector.x + remotePageData.width / 2, resultingVector.y + remotePageData.height / 2);
+    //ine(point2[0], point2[1], resultingVector.x + remotePageData.width / 2, resultingVector.y + remotePageData.height / 2);
+}
+
+function showStatus(message, statusColor) {
+    textSize(24);
+    textAlign(CENTER, CENTER);
+    noStroke();
+    // Dibujar rectángulo de fondo para el texto
+    fill(0, 0, 0, 150); // Negro semi-transparente
+    rectMode(CENTER);
+    let textW = textWidth(message) + 40;
+    let textH = 40;
+    rect(width / 2, 1*height / 6, textW, textH, 10);
+    // Dibujar el texto
+    fill(statusColor);
+    text(message, width / 2, 1*height / 6);
+}
+
+function drawHeart(x, y,scale) {
+    fill(255, 0, 0);
+    noStroke();
+  
+    push();
+    translate(x,y);
+
+
+
+     // dos círculos arriba
+     ellipse(- 40*scale, - 40*scale, 100*scale, 100*scale);
+     ellipse(40*scale,- 40*scale, 100*scale, 100*scale);
+  
+      // triángulo abajo
+      triangle(- 80*scale, - 10*scale, 80*scale,- 10*scale, 0, 80*scale);
+
+    pop();
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+}
+```
+
+## Autoevaluación 🌸
+
+Mi nota es: 
+
+| Actividad | Nota  | Justificación |
