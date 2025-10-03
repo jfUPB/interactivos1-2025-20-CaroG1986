@@ -31,6 +31,7 @@ Al momento de abrir estas páginas me aparecieron estos mensajes en el servidor,
 
 Cuando se mueve una de las ventanas se puede ver como esta sigue la conexión con la otra página y en si visualmente el mayor cambio es que la linea que conecta ambos circulos cambia según donde esten. Ahora en la consolo del navegador se ve lo siguiente: 
 
+<a name="exp1"></a>
 <img width="1911" height="990" alt="image" src="https://github.com/user-attachments/assets/911372e4-8ddf-4634-bb1f-a407c2bb7fbc" />
 
 Esto que se ve es el mismo código que se puede ver en el servidor de java script, y especificamente en la consola esta constantemente enviando mensajes sobre su estado de sincronización con la otra página, por ende si hay un cambio en la otra página esto se ve directamente en la consola de chrome.
@@ -50,6 +51,7 @@ Claro que hay muchas relaciones cliente servidor en la vida cotidiana, entre est
 
 **Toma la URL de tu sitio web favorito. Intenta identificar el protocolo, el nombre de dominio y la ruta (si la hay). ¿Qué crees que pasa si solo escribes el nombre de dominio (ej. www.google.com) sin una ruta específica? ¿Qué “página por defecto” crees que te envía el servidor?** 🌸
 
+<a name="exp2"></a>
 https://www.youtube.com/watch?v=AZWJNXQAngM
 
 - Protocolo: ahí se puede ver muy claramente que es el https://, que son las reglas estandar que usan los navegadores.
@@ -247,6 +249,8 @@ Básicamente la idea de esta experimiento era demostrar que al mover la page2 se
 Con este mensaje se puede ver que al esta parte de la función checkWindowPosition si se esta utilizando y se activa con el movimeinto de la pestaña o el cambiar el tamaño de esta.
 
 ### Experimento 5 🍓
+
+<a name="exp3"></a>
 
 **Cambia el background(220) para que dependa de la distancia entre las ventanas. Puedes calcular la magnitud del resultingVector usando let distancia = resultingVector.mag(); y luego usa map() para convertir esa distancia a un valor de gris o color. background(map(distancia, 0, 1000, 255, 0)); (ajusta el rango 0-1000 según sea necesario).** 🌸
 
@@ -760,8 +764,13 @@ function windowResized() {
 
 ## Autoevaluación 🌸
 
-Mi nota es: 
+**Mi nota es: 5.0**
 
 | Actividad | Nota  | Justificación |
 |----------:|------:|--------------:|
-| 1 | 1na unidad | 
+| 1 | 1na unidad | esta actividad esta completa y creo que se puede evidenciar mi comprensión del tema en ejercicios como [este](#exp1)|
+| 2 | 1na unidad | en esta actividad también pude apropiarme de ella, [por ejemplo](#exp2) en la actividad de la URL. |
+| 3 | 1na unidad | Esta actividad esta completa y logre comprender bien como funciona la conexión con el servidor. |
+| 4 | 1na unidad | También esta completa en todos sus experimenetos, y aunque el [experimiento creativo](#exp3) fue sencillo intente hacer algo diferente y que fuera un primer paso para comprender como hacer un programa más tarde|
+| 5 | 1na unidad | Esta actividad me ayudo para comprender mejor tanto como funciona la comunicación entre clientes y servidor, como para comprender la importancia de el cálculo dentro de la programación de estos proyectos |
+
