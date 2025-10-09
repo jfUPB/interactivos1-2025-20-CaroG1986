@@ -55,3 +55,28 @@ Las ventajas de usar este método de conexión es que permite una conexión más
 
 **¿Cuál es la función principal de express.static(‘public’) en este servidor? ¿Cómo se compara con el uso de app.get(‘/ruta’, …) del servidor de la Unidad 6?**
 
+La función principal de esto es conectar la aplicación por medio de la carpeta 'public' qué es la que contiene la información de cómo se da la conexión en la computadora y el dispositivo móvil. A diferencia de la unidad anterior este no busca una ruta específica que está en el computador como antes que era página 1 página 2, y es por eso mismo que se permite una conexión con otro dispositivo.
+
+**Explica detalladamente el flujo de un mensaje táctil: ¿Qué evento lo envía desde el móvil? ¿Qué evento lo recibe el servidor? ¿Qué hace el servidor con él? ¿Qué evento lo envía el servidor al escritorio? ¿Por qué se usa socket.broadcast.emit en lugar de io.emit o socket.emit en este caso?**
+
+Primero desde el movil el evento que envia la información es touchMoved, esa después le comunica al servidor sobre la información por medio de io.on y ya después se envía la información a el portátil por medio de socket on.broadcast, el portátil por su parte lo recibe con socket.on.El broadcast se usa ya que está es una trasmisión en vivo que cambia con el tiempo y necesita actualizarse.
+
+**Si conectaras dos computadores de escritorio y un móvil a este servidor, y movieras el dedo en el móvil, ¿Quién recibiría el mensaje retransmitido por el servidor? ¿Por qué?**
+
+>Yo creo que se conectarán dos computadores al mismo servidor serían los dos computadores los que recibirían el mensaje de el móvil ya que ambos se toman en este caso como los receptores.
+
+Como no estaba muy segura sobre esa pregunta entonces investigué más sobre cómo funciona esta conexión. Por lo que descubrí que clientes pueden haber muchos sin embargo servidores activos con el mismo devtunnel solo hay uno, porque así funciona el devtunnel, generando una conexión con un solo servidor local entonces la información llegaría a el computador con el servidor inicial.
+
+**¿Qué información útil te proporcionan los mensajes console.log en el servidor durante la ejecución?**
+
+El console.log manda mensajes de si hay un nuevo cliente conectado o desconectado, en dónde está escuchando el servidor, y cuáles son los mensajes que estás recibiendo del cliente. Esos mensajes que se muestran son útiles porque permite el programador conocer qué está pasando en realidad en el programa y entonces si ocurre algún error se puede ver si fue desde la conexión o en cuanto a los mensajes que se recibieron.
+
+## Actividad 04 👰‍♀️
+
+**Realiza un diagrama donde muestres el flujo completo de datos y eventos entre los tres componentes: móvil, servidor y escritorio. Puedes ilustrar con un ejemplo de coordenadas táctiles (x, y) y cómo viajan a través del sistema.**
+
+<img width="799" height="748" alt="image" src="https://github.com/user-attachments/assets/83c89838-aff6-472d-933b-626ac1eca174" />
+
+## Actividad 05 👰‍♀️
+
+## Autoevaluación 👰‍♀️
